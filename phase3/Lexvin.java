@@ -54,10 +54,70 @@ public class Lexvin {
     } // lirecar
 
     public static String repId(int nid) {
-	return "" ;
+	if (nid <= itab)	return  tabid[nid];
+	else return ("erreur de numéro d'identifiant")
     } // repId
 
     public static int liresymb() {
+    	while (carlu == ' ' || carlu == "/n") lirecar();
+    	String mot = carlu; 
+    	
+    	// cas de la virgule 
+    	if (mot.equals(";")) return VIRGULE;
+    	
+    	
+       	// cas du point-virgule
+    	if (mot.equals(";")) return PTVIRG;
+    	
+    	
+    	// cas de la barre
+    	if (mot.equals("/")) return PTVIRG;    	
+    	
+    	// cas des nombres entier
+    	if (carlu >= "0" && carlu <= "9"){
+    		lirecar();
+    		while carlu(carlu >= "0" && carlu <= "9"){
+    			mot = mot + carlu;
+    			lirecar();
+    		}
+	    		valNb= Integer.parseInt(mot);
+    			return NBENTIER;
+    	}
+    	
+    	// cas de Beaujolais, Bourgogne et ITEMS
+    	if (carlu >= "A" && carlu <= "Z"){
+    		lirecar();
+    		while (carlu <= "A" && carlu >= "Z") {
+    			mot = mot + carlu;
+    			lirecar;
+    		}
+    		
+    		if (mot.equals(BOURGOGNE)) return BOURGOGNE;
+    		if (mot.equals(BEAUJOLAIS)) return BEAUJOLAIS;
+    		
+    		
+    		int i=NBRES;
+    		while (i <= itab){
+    				if (mot.equals(tabid[i])) { 
+    					numid = i;
+    					return IDENT;
+    				}
+    				else i++;
+    		}
+    		
+    		if (itab <= MAXID -1 ) {
+    			itab ++;
+    			tabid[itab]= mot;
+    			numid = itab;
+    			return IDENT;
+    		}
+    	}
+    	
+    	else return AUTRE;
+    	}
+    		
+    		    		
+    		
 	return IDENT ;
     } // liresymb
 
